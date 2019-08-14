@@ -113,11 +113,11 @@ bindsym $mod+Control+Right workspace next
 bindsym $mod+Control+Left workspace prev
 
 
-set $workspace1 "1:Internet"
-set $workspace2 "2:Terminal"
-set $workspace3 "3:Editor"
-set $workspace4 "4:Coding"
-set $workspace5 "5:Entertainment"
+set $workspace1 "1:👤 Internet"
+set $workspace2 "2:⚙️ Terminal"
+set $workspace3 "3:🎨 Editor"
+set $workspace4 "4:💻 Coding"
+set $workspace5 "5:🎵 Entertainment"
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
