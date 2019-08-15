@@ -114,7 +114,7 @@ bindsym $mod+Control+Left workspace prev
 
 
 set $workspace1 "1:👤 Internet"
-set $workspace2 "2:⚙️ Terminal"
+set $workspace2 "2:⚙️  Terminal"
 set $workspace3 "3:🎨 Editor"
 set $workspace4 "4:💻 Coding"
 set $workspace5 "5:🎵 Entertainment"
@@ -127,7 +127,7 @@ bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace next
+bindsym $mod+Shift+1 move container to workspace $workspace1
 bindsym $mod+Shift+2 move container to workspace $workspace2
 bindsym $mod+Shift+3 move container to workspace $workspace3
 bindsym $mod+Shift+4 move container to workspace $workspace4
