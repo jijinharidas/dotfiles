@@ -15,10 +15,10 @@ bindsym $mod+Shift+q kill
 exec --no-startup-id nitrogen --restore
 
 # start a terminal
-bindsym $mod+Return exec konsole
-# rofi
+bindsym $mod+Return exec st
+
 # border for windows
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 1
 
 # i3gaps settings
 # Must install i3gaps
@@ -31,13 +31,13 @@ bindsym $mod+Shift+t gaps inner current set 15; gaps outer current set 15
 
 # Dmenu bar setting
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
+bindsym $mod+Shift+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
 # Take a screenshot with scrot and move it to Pictures directory
 # Must install scrot
-bindsym $mod+Shift+P exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/'
+bindsym $mod+Shift+P exec scrot -e 'mv $f ~/Pictures/$date.png'
 
 #start Firefox
-bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+b exec brave 
 
 #shutdown
 bindsym mod+Shift+o exec shutdown now
@@ -169,7 +169,7 @@ bindsym XF86AudioMute exec amixer -q sset Master toggle # mute sound
 # Use i3blocks as status bar
 bar {
     status_command i3blocks
-		font pango:mono 8
+		font pango:mono 9
 		position top
 		mode dock
 		modifier none

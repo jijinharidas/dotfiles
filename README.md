@@ -1,2 +1,5 @@
-# dotfiles
-Dotfiles for i3-wm and vim
+# Dotfiles
+
+### Under development
+
+Contains config files for i3-wm and nvim
