@@ -1,3 +1,8 @@
+
+
+#================================================
+#             GENERAL SETTINGS
+#================================================
 set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
@@ -7,40 +12,98 @@ font pango:FontAwesome 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# kill focused window
-bindsym $mod+Shift+q kill
+#==============================================
+
+
+
+
+
+#================================================
+#                   AUTO START
+#================================================
 
 # sets wallpaper
 # Must install nitrogen
 exec --no-startup-id nitrogen --restore
 
-# start a terminal
-bindsym $mod+Return exec st
+# Picom for transparency and effects
+exec_always --no-startup-id picom -bc
 
-# border for windows
-for_window [class="^.*"] border pixel 1
+#================================================
 
-# i3gaps settings
-# Must install i3gaps
-gaps outer 15
-gaps inner 15
 
+
+
+
+#================================================
+#                  KEY BINDINGS
+#================================================
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# i3-gaps settings
 bindsym $mod+z gaps outer current plus 5
 bindsym $mod+Shift+z gaps outer current minus 5
 bindsym $mod+Shift+t gaps inner current set 15; gaps outer current set 15
 
+# start a terminal
+bindsym $mod+Return exec --no-startup-id st
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
 # Dmenu bar setting
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+Shift+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
+
 # Take a screenshot with scrot and move it to Pictures directory
 # Must install scrot
-bindsym $mod+Shift+P exec scrot -e 'mv $f ~/Pictures/$date.png'
+bindsym $mod+Shift+P exec scrot ~/Pictures/%Y-%m-%d-%T-screenshot.png 
 
-#start Firefox
-bindsym $mod+Shift+b exec brave 
+#start brave 
+bindsym $mod+Shift+b exec --no-startup-id brave 
 
-#shutdown
-bindsym mod+Shift+o exec shutdown now
+# Resize
+bindsym $mod+r mode "resize"
+
+bindsym XF86MonBrightnessUp exec brightnessctl -d intel_backlight s +5% # increase screen brightness
+bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight s 5%- # decrease screen brightness
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 10%+ #increase sound volume
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 10%- #decrease sound volume
+bindsym XF86AudioMute exec amixer -q sset Master toggle # mute sound
+
+# For Num Lock and Caps Lock indicator in i3blocks
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+12 i3blocks
+bindsym --release Num_Lock exec pkill -SIGRTMIN+2 i3blocks
+#=================================================
+
+
+
+
+
+#================================================
+#                    WINDOWS
+#================================================
+# border for windows
+for_window [class="^.*"] border pixel 0
+
+# always open on float
+for_window [title="st"] floating enable
+
+# Minimum size for floating windows
+floating_minimum_size 800 x 600
+
+# Must install i3gaps
+gaps outer 15
+gaps inner 15
 
 # change focus
 bindsym $mod+j focus left
@@ -89,12 +152,15 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
+#================================================
 
-# switch to workspace
-bindsym $mod+Control+Right workspace next
-bindsym $mod+Control+Left workspace prev
+
+
+
+
+#================================================
+#                  WORKSPACE
+#================================================
 
 # Create variable names for workspace
 set $ws1 "1"
@@ -123,12 +189,20 @@ bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# switch to workspace
+bindsym $mod+Control+Right workspace next
+bindsym $mod+Control+Left workspace prev
+
+
+#================================================
+
+
+
+
+
+#================================================
+#                    RESIZE
+#================================================
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -155,17 +229,15 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
-
-bindsym XF86MonBrightnessUp exec brightnessctl -d intel_backlight s +5% # increase screen brightness
-bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight s 5%- # decrease screen brightness
-
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec amixer -q sset Master 10%+ #increase sound volume
-bindsym XF86AudioLowerVolume exec amixer -q sset Master 10%- #decrease sound volume
-bindsym XF86AudioMute exec amixer -q sset Master toggle # mute sound
+#================================================
 
 
+
+
+
+#================================================
+#                 I3BLOCKS
+#================================================
 # Use i3blocks as status bar
 bar {
     status_command i3blocks
@@ -174,7 +246,7 @@ bar {
 		mode dock
 		modifier none
 		colors{
-                background #000000
+                background #1c0b1e
                 separator #757575
                 focused_workspace  #000000            #eefff0            #000000
                 inactive_workspace #000000            #e0ddf0            #000000
@@ -182,6 +254,5 @@ bar {
 		}
 
 }
-# For Num Lock and Caps Lock indicator in i3blocks
-bindsym --release Caps_Lock exec pkill -SIGRTMIN+12 i3blocks
-bindsym --release Num_Lock exec pkill -SIGRTMIN+2 i3blocks
+#================================================
+
