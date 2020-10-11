@@ -10,10 +10,11 @@ Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'mhinz/vim-startify'
 Plug 'neomake/neomake'
 Plug 'machakann/vim-highlightedyank'
-
+Plug 'skammer/vim-css-color'
+Plug 'morhetz/gruvbox'
+Plug 'preservim/nerdtree'
 call plug#end()
 
 "==========General Settings==========
@@ -31,5 +32,13 @@ set smartindent
 set smartcase
 set cursorline
 syntax on
-colorscheme onedark
+colorscheme gruvbox
 
+"================================================
+"                 KEY BINDINGS
+"================================================
+map <C-t><l> :tabr<cr>
+map <C-t><h> :tabl<cr>
+map <C-t><k> :tabp<cr>
+map <C-t><j> :tabn<cr>
+map <C-t><C-o> :NERDTree<cr>
