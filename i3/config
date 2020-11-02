@@ -27,7 +27,7 @@ floating_modifier $mod
 exec --no-startup-id nitrogen --restore
 
 # Picom for transparency and effects
-exec_always --no-startup-id picom -b 
+exec --no-startup-id picom -b 
 
 #================================================
 
@@ -59,6 +59,7 @@ bindsym $mod+Return exec --no-startup-id st
 
 # start vifm
 bindsym $mod+Control+f exec --no-startup-id st -e vifm
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -87,6 +88,10 @@ bindsym XF86AudioMute exec amixer -q sset Master toggle # mute sound
 # For Num Lock and Caps Lock indicator in i3blocks
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+12 i3blocks
 bindsym --release Num_Lock exec pkill -SIGRTMIN+2 i3blocks
+
+#kill picom
+bindsym $mod+control+q exec killall picom
+bindsym $mod+control+p exec --no-startup-id picom -b
 #=================================================
 
 
