@@ -13,8 +13,10 @@ separator_block_width=20
 markup=pango
 
 [battery]
+command=~/.config/i3blocks/battery/battery_info.sh
 interval=2
-color=#ff79c6
+label=<span color="#ff79c6">🔋 </span>
+
 
 [wifi]
 command=iwgetid -r | tr '\n' ' ' && grep $(iwgetid -m | awk '{ printf "%s", $1 }') /proc/net/wireless | awk '{ printf "%i%\n", int($3 * 100 / 70) }'
@@ -22,19 +24,15 @@ instance=wlp11s0f3u1
 interval=5
 label=<span color="#ffb86c"> </span>
 
-[new-vpn]
-command=~/.config/i3blocks/blocks/openvpn/openvpn
-interval=1
-label=<span color="#8be9fd"> </span>
-
 [home]
 command=df -h /home | awk 'FNR==2{print $4}'
 interval=3
 label=<span color="#a9e185"> </span>
 
+
 [cpu_usage]
-command=~/.config/i3blocks/blocks/cpu_usage/cpu_usage
-interval=2
+command=~free -h | awk
+interval=repeat
 label=<span color="#8be9fd"> </span>
 
 [cpu-temperature]
