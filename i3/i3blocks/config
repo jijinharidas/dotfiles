@@ -1,33 +1,64 @@
-[DISK]
-command=df -h / | awk '/\//{ printf(" 💾 %4s/%s \n", $4, $2) }'
+# For the benefit of emacs users: -*- shell-script -*-
+#
+#  _ _____ _     _            _
+# (_)___ /| |__ | | ___   ___| | _____
+# | | |_ \| '_ \| |/ _ \ / __| |/ / __|
+# | |___) | |_) | | (_) | (__|   <\__ \
+# |_|____/|_.__/|_|\___/ \___|_|\_\___/
+
+align=center
+separator=false
+color=#ffffff
+separator_block_width=20
+markup=pango
+
+[battery]
 interval=2
-color=#C9E3DB
+color=#ff79c6
 
-[BATTERY]
-command=~/.config/i3blocks/battery/battery_info.sh
+[wifi]
+command=iwgetid -r | tr '\n' ' ' && grep $(iwgetid -m | awk '{ printf "%s", $1 }') /proc/net/wireless | awk '{ printf "%i%\n", int($3 * 100 / 70) }'
+instance=wlp11s0f3u1
+interval=5
+label=<span color="#ffb86c"> </span>
+
+[new-vpn]
+command=~/.config/i3blocks/blocks/openvpn/openvpn
+interval=1
+label=<span color="#8be9fd"> </span>
+
+[home]
+command=df -h /home | awk 'FNR==2{print $4}'
 interval=3
+label=<span color="#a9e185"> </span>
 
-[CPU]
-full_text= CPU:  0.00% @ +00.0°C 
-command=~/.config/i3blocks/cpu/cpu_info.sh
-interval=repeat
-color=#00B4EB
+[cpu_usage]
+command=~/.config/i3blocks/blocks/cpu_usage/cpu_usage
+interval=2
+label=<span color="#8be9fd"> </span>
 
-[MEM]
-command=free -h | awk '/Mem:/ { printf(" 🐏 %5s/%s \n", $3, $2) }'
+[cpu-temperature]
+command=~/.config/i3blocks/blocks/temperature/temperature
+interval=2
+SENSOR_CHIP="jc42-i2c-0-1a"
+label=<span color="#8be9fd"> </span>
+
+[memory]
+command=free -h --si | awk 'FNR==2{ print $0 }' | awk '{ print $7 }'
+interval=2
+label=<span color="#a9e185"> </span>
+
+[volume]
+command=pulseaudio-ctl full-status | awk '{ printf "%i%\n", $1 }'
+interval=2
+label=<span color="#ff79c6"> </span>
+
+[time]
+command=date '+%I:%M'
 interval=1
-color=#FEC925
+label=<span color="#ffb86c"> </span>
 
-[SOUND_BURST]
-command=~/.config/i3blocks/sound/sound_burst.sh
-interval=once
-
-[SOUND]
-full_text= 🔇:  0% 
-command=~/.config/i3blocks/sound/sound_info.sh
-interval=0
-signal=1
-
-[TIME_DATE]
-command=date +" %a, %d %b - %H:%M:%S"
-interval=1
+[date]
+command=date '+%A %e'
+interval=60
+label=<span color="#8be9fd"> </span>

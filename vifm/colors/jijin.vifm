@@ -1,0 +1,28 @@
+" Jijin's personal color scheme approximation for vifm
+
+" Reset all styles first
+highlight clear
+
+highlight Win cterm=none ctermfg=255 ctermbg=default
+highlight Directory cterm=bold ctermfg=109 ctermbg=default
+highlight Link cterm=bold ctermfg=default ctermbg=default
+highlight BrokenLink cterm=bold ctermfg=red ctermbg=default
+highlight Socket cterm=bold ctermfg=magenta ctermbg=default
+highlight Device cterm=bold ctermfg=red ctermbg=default
+highlight Fifo cterm=bold ctermfg=cyan ctermbg=default
+highlight Executable cterm=bold ctermfg=red ctermbg=default
+highlight Selected cterm=none ctermfg=magenta ctermbg=black
+highlight CurrLine cterm=reverse
+highlight TopLine cterm=none ctermfg=255 ctermbg=234
+highlight TopLineSel cterm=bold ctermfg=110 ctermbg=default
+highlight StatusLine cterm=none ctermfg=255 ctermbg=235
+highlight WildMenu cterm=underline,reverse ctermfg=255 ctermbg=black
+highlight CmdLine cterm=none ctermfg=255 ctermbg=234
+highlight ErrorMsg cterm=none ctermfg=red ctermbg=234
+highlight Border cterm=none ctermfg=8 ctermbg=black
+highlight JobLine cterm=bold,reverse ctermfg=black ctermbg=255
+highlight SuggestBox cterm=bold ctermfg=default ctermbg=default
+highlight CmpMismatch cterm=bold ctermfg=black ctermbg=red
+highlight AuxWin cterm=bold,underline,reverse,standout,italic ctermfg=default ctermbg=default
+highlight TabLine cterm=none ctermfg=black ctermbg=black
+highlight TabLineSel cterm=bold,reverse ctermfg=black ctermbg=default

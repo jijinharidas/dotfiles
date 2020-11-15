@@ -7,10 +7,14 @@ set $mod Mod4
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:FontAwesome 8
+font pango: SpaceMono Nerd Font Mono Medium 11
+
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+
+# Hide titlebar
+new_window pixel
 
 #==============================================
 
@@ -64,8 +68,8 @@ bindsym $mod+Control+f exec --no-startup-id st -e vifm
 bindsym $mod+Shift+q kill
 
 # Dmenu bar setting
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+Shift+d exec --no-startup-id "rofi -show drun -font \\"DejaVu 9\\" -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
+bindsym $mod+d exec rofi -show run -columns 3
+
 
 # Take a screenshot with scrot and move it to Pictures directory
 # Must install scrot
@@ -102,7 +106,7 @@ bindsym $mod+control+p exec --no-startup-id picom -b
 #                    WINDOWS
 #================================================
 # border for windows
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 2
 
 # always open on float
 for_window [title="st"] floating enable
@@ -112,8 +116,7 @@ for_window [title="vifm"] floating enable
 floating_minimum_size 600 x 500
 
 # Must install i3gaps
-gaps outer 15
-gaps inner 0
+gaps inner 6
 
 # change focus
 bindsym $mod+h focus left
@@ -253,20 +256,41 @@ bindsym Right resize grow width 10 px or 10 ppt         # Pressing down will gro
 #                 I3BLOCKS
 #================================================
 # Use i3blocks as status bar
+# Defining colors
+set $bg      #282A36
+set $lg      #44475a
+set $fg      #f8f8f2
+set $cyan    #8be9fd
+set $green   #50fa7b
+set $magenta #ff79c6
+set $comment #6272a4
+set $purple  #bd93f9
+
+# Set some nice colors      border       background text     indicator
+client.focused              $comment $comment   $fg      $comment
+client.unfocused            $bg      $bg        $cyan    $bg
+client.focused_inactive     $bg      $bg        $green   $bg
+client.urgent               $bg      $bg        $magenta $bg
+client.placeholder          $bg      $bg        $cyan    $bg
+
+
 bar {
+    position top
     status_command i3blocks
-		font pango:mono 9
+    i3bar_command i3bar
+		font pango: SpaceMono Nerd Font Regular 9
 		position top
 		mode dock
 		modifier none
 		colors{
-                background #1c0b1e
-                separator #757575
-                focused_workspace  #000000            #eefff0            #000000
-                inactive_workspace #000000            #e0ddf0            #000000
-                urgent_workspace   #000000            #ffafaa            #fdf6e3
+                #                   Border Background Text
+                    focused_workspace   $fg    $fg        $bg
+                    active_workspace    $bg    $bg        $purple
+                    inactive_workspace  $bg    $bg        $cyan
+                    urgent_workspace    $bg    $bg        $magenta
+                    background          $bg
 		}
 
 }
-#================================================
 
+#================================================
