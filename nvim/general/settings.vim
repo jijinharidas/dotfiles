@@ -17,7 +17,7 @@ set ruler              			            " Show the cursor position all the time
 set t_Co=256                            " Support 256 colors
 set mouse=a
 set backspace=indent,eol,start
-set clipboard=unnamedplus               " Copy paste between vim and everything else
+set clipboard+=unnamedplus
 syntax on
 filetype plugin on
 set termguicolors
@@ -25,5 +25,3 @@ colorscheme gruvbox
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ }
-
-

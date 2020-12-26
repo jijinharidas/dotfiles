@@ -11,6 +11,15 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'morhetz/gruvbox'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'prettier/vim-prettier', {'do': 'yarn install'}
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'w0rp/ale'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ryanoasis/vim-devicons'
+" Auto pairs for '(' '[' '{'
+Plug 'jiangmiao/auto-pairs'
+" Closetags
+Plug 'alvan/vim-closetag'
 call plug#end()
 
 source $HOME/.config/nvim/general/keybindings.vim

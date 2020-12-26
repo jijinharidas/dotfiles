@@ -28,3 +28,15 @@ let NERDTreeMapOpenInTab='<C-t>'
 let NERDTreeQuitOnOpen=1
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
+
+"=========================
+"=========================
+let g:ale_linters = {
+    \ 'javascript': ['eslint'],
+    \}
+
+let g:ale_fixers = {
+    \ 'javascript': ['prettier', 'eslint']
+    \ }
+let g:ale_fix_on_save = 1
+nmap <leader>d <Plug>(ale_fix)

@@ -16,6 +16,7 @@ floating_modifier $mod
 # Hide titlebar
 new_window pixel
 
+
 #==============================================
 
 
@@ -31,7 +32,10 @@ new_window pixel
 exec --no-startup-id nitrogen --restore
 
 # Picom for transparency and effects
-exec --no-startup-id picom -b 
+exec --no-startup-id picom --experimental-backends --config ~/.config/picom/picom.conf
+
+#polybar
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 #================================================
 
@@ -68,34 +72,32 @@ bindsym $mod+Control+f exec --no-startup-id st -e vifm
 bindsym $mod+Shift+q kill
 
 # Dmenu bar setting
-bindsym $mod+d exec rofi -show run -columns 3
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run -columns 3
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 
 # Take a screenshot with scrot and move it to Pictures directory
 # Must install scrot
-bindsym $mod+Shift+P exec scrot ~/Pictures/%Y-%m-%d-%T-screenshot.png 
+bindsym $mod+Shift+P exec --no-startup-id scrot ~/Pictures/%Y-%m-%d-%T-screenshot.png
 
-#start brave 
-bindsym $mod+Shift+b exec --no-startup-id brave 
+#start brave
+bindsym $mod+Shift+b exec --no-startup-id brave
 
 # Resize
 bindsym $mod+r mode "resize"
 
-bindsym XF86MonBrightnessUp exec brightnessctl -d intel_backlight s +5% # increase screen brightness
-bindsym XF86MonBrightnessDown exec brightnessctl -d intel_backlight s 5%- # decrease screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -d intel_backlight s +5% # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl -d intel_backlight s 5%- # decrease screen brightness
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec amixer -q sset Master 10%+ #increase sound volume
-bindsym XF86AudioLowerVolume exec amixer -q sset Master 10%- #decrease sound volume
-bindsym XF86AudioMute exec amixer -q sset Master toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 10%+ #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 10%- #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle # mute sound
 
-# For Num Lock and Caps Lock indicator in i3blocks
-bindsym --release Caps_Lock exec pkill -SIGRTMIN+12 i3blocks
-bindsym --release Num_Lock exec pkill -SIGRTMIN+2 i3blocks
 
 #kill picom
-bindsym $mod+control+q exec killall picom
-bindsym $mod+control+p exec --no-startup-id picom -b
+bindsym $mod+control+q exec --no-startup-id killall picom
+bindsym $mod+control+p exec --no-startup-id picom --config ~/.config/picom/picom.conf
 #=================================================
 
 
@@ -106,17 +108,19 @@ bindsym $mod+control+p exec --no-startup-id picom -b
 #                    WINDOWS
 #================================================
 # border for windows
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 0
+for_window [class="St"] floating enable
 
-# always open on float
-for_window [title="st"] floating enable
-for_window [title="vifm"] floating enable
+
 
 # Minimum size for floating windows
 floating_minimum_size 600 x 500
 
-# Must install i3gaps
-gaps inner 6
+for_window [class="^.*"] border none
+gaps inner 12
+gaps outer 18
+gaps top 12
+
 
 # change focus
 bindsym $mod+h focus left
@@ -183,6 +187,9 @@ set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -192,6 +199,9 @@ bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -201,6 +211,9 @@ bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+
 
 # switch to workspace
 bindsym $mod+Control+Right workspace next
@@ -257,7 +270,7 @@ bindsym Right resize grow width 10 px or 10 ppt         # Pressing down will gro
 #================================================
 # Use i3blocks as status bar
 # Defining colors
-set $bg      #282A36
+set $bg      #000000
 set $lg      #44475a
 set $fg      #f8f8f2
 set $cyan    #8be9fd
@@ -266,31 +279,29 @@ set $magenta #ff79c6
 set $comment #6272a4
 set $purple  #bd93f9
 
-# Set some nice colors      border       background text     indicator
-client.focused              $comment $comment   $fg      $comment
-client.unfocused            $bg      $bg        $cyan    $bg
-client.focused_inactive     $bg      $bg        $green   $bg
-client.urgent               $bg      $bg        $magenta $bg
-client.placeholder          $bg      $bg        $cyan    $bg
+# class        border		background 	text 	indicator 	child-border
+client.focused $col12 $col12 #222222 #2e9ef4 	#e6b3ff
+client.unfocused #222222 #222222 #888888 #292d2e   #222222
 
+for_window [window_type="notification"] floating enable, border none
+no_focus [window_type="notification"]
 
 bar {
     position top
     status_command i3blocks
     i3bar_command i3bar
-		font pango: SpaceMono Nerd Font Regular 9
-		position top
-		mode dock
-		modifier none
-		colors{
+                font pango: SpaceMono Nerd Font Regular 9
+                position top
+                mode dock
+                modifier none
+                colors{
                 #                   Border Background Text
                     focused_workspace   $fg    $fg        $bg
                     active_workspace    $bg    $bg        $purple
                     inactive_workspace  $bg    $bg        $cyan
                     urgent_workspace    $bg    $bg        $magenta
                     background          $bg
-		}
+                }
 
 }
-
 #================================================
